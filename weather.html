@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="weather.css" >
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</head>
+<body class="body">
+
+    <i class="bi bi-cloud-sun"></i>
+    <div class="container">
+      <h1>WEATHER</h1>
+    <form action="" onsubmit="weather();return false">
+        <input type="text" id="cityname" placeholder="City Name"><br>
+        <input class="btn" type="submit" value="ENTER"> 
+    </form>
+    <div class="temp"></div>
+    <div class="temp_f"></div>
+    <div class="humidity"></div>
+    <div class="feelslike_c"></div>
+    <div class="feelslike_f"></div>
+    <div class="precipitation"></div>
+    <div class="wind_dir"></div>
+    <div class="loc"></div>
+    
+  </div>
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script>
+     function weather(){
+          let cityname = document.getElementById('cityname').value
+          let temp = document.getElementsByClassName('temp')[0]
+          let farenheit = document.getElementsByClassName('temp_f')[0]
+          let humidity = document.getElementsByClassName('humidity')[0]
+          let feelslikec = document.getElementsByClassName('feelslike_c')[0]
+          let feelslikef = document.getElementsByClassName('feelslike_f')[0]
+          let precip = document.getElementsByClassName('precipitation')[0]
+          let winddir = document.getElementsByClassName('wind_dir')[0]
+          let location = document.getElementsByClassName('loc')[0]
+
+        
+          axios.get(`http://api.weatherapi.com/v1/current.json?key=0c7feafc77eb4d5890762044230303&q=${cityname}`)
+  .then(function (response) {
+    // handle success
+    console.log(response);
+    console.log(response.data.current.temp_c);
+    console.log(response.data.current.temp_f);
+    console.log(response.data.current.humidity);
+    console.log(response.data.current.feelslike_c);
+    console.log(response.data.current.feelslike_f);
+    console.log(response.data.current.precip_mm);
+    console.log(response.data.current.wind_dir);
+    console.log(response.data.location.country);
+
+
+    temp.innerHTML = `Temprature in centigrade is: ${response.data.current.temp_c}`
+    farenheit.innerHTML = `Temprature in farenheit is: ${response.data.current.temp_f}`
+    humidity.innerHTML = `Humidity is: ${response.data.current.humidity}`
+    feelslikec.innerHTML = `Feels like in centigrade: ${response.data.current.feelslike_c}`
+    feelslikef.innerHTML = `Feels like in farenheit: ${response.data.current.feelslike_f}`
+    precip.innerHTML = `precipitation is: ${response.data.current.precip_mm}`
+    winddir.innerHTML = `wind direction is: ${response.data.current.wind_dir}`
+    location.innerHTML = ` Country is: ${response.data.location.country}`
+
+  })
+  .catch(function (error) {
+    // handle error
+    console.log(error);
+  })
+  .finally(function () {
+    // always executed
+  });
+
+    }
+  
+     
+
+
+         
+
+
+
+
+
+
+
+  </script>
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>
